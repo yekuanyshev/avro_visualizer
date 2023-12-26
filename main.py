@@ -3,16 +3,17 @@ import avro
 
 def main():
     raw = read_json_file('models.avsc')
+    table_format = 'simple_grid'
 
     result = ''
     for raw_schema in raw:
         if raw_schema['type'] == 'record':
             record = avro.parse_record(raw_schema)
-            result += record.dump()
+            result += record.dump(table_format=table_format)
 
         if raw_schema['type'] == 'enum':
             enum = avro.parse_enum(raw_schema)
-            result += enum.dump()
+            result += enum.dump(table_format=table_format)
 
         result += '\n'
 

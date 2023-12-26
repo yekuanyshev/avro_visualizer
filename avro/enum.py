@@ -3,11 +3,11 @@ from dataclasses import dataclass
 
 @dataclass
 class Enum:
-    name:   str
-    values: list[str]
-    doc:    str = None
+    name:           str
+    values:         list[str]
+    doc:            str = None
 
-    def dump(self):
+    def dump(self, table_format='html'):
         headers = ['Enum', 'Values']
         data = [
             [self.name, '']
@@ -18,6 +18,6 @@ class Enum:
         return tabulate.tabulate(
             data,
             headers=headers,
-            tablefmt='simple_grid',
+            tablefmt=table_format,
             showindex='always'
         )
