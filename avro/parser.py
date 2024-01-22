@@ -2,6 +2,12 @@ from .record import Record
 from .field import Field
 from .enum import Enum
 
+ignore_fields = [
+    '_MVCC',
+    '_EMPLOYEE_AFFINITY',
+    '_AFFINITY'
+]
+
 def parse_record(raw: dict) -> Record:
     name = raw['name']
     doc = raw.get('doc', '')
@@ -19,7 +25,7 @@ def parse_record(raw: dict) -> Record:
     fields = []
     for raw_field in raw['fields']:
         field_name = raw_field['name']
-        if field_name == '_MVCC':
+        if field_name in ignore_fields:
             continue
 
         field_type, is_nullable = parse_type(raw_field['type'])

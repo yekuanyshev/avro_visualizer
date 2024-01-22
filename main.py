@@ -3,7 +3,7 @@ import avro
 
 def main():
     raw = read_json_file('models.avsc')
-    table_format = 'simple_grid'
+    table_format = 'html'
 
     result = ''
     for raw_schema in raw:
