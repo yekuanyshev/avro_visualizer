@@ -1,12 +1,31 @@
 import json
 import avro
 
+ignore_schemas = [
+    'DictKeys',
+    'DictItem',
+    'FieldTrack',
+    'SimpleDictValue',
+    'CreditPurposeDictRecord',
+    'CreditPurposeDictValue',
+    'ExtraDataRecord',
+    'ExternalRefMVCC',
+    'ClientRef',
+    'ProductRef',
+    'RestructurizationRef',
+    'TransactionRef',
+    'StaffRef'
+]
+
 def main():
     raw = read_json_file('models.avsc')
     table_format = 'html'
 
     result = ''
     for raw_schema in raw:
+        if raw_schema['name'] in ignore_schemas:
+            continue
+
         if raw_schema['type'] == 'record':
             record = avro.parse_record(raw_schema)
             result += record.dump(table_format=table_format)
