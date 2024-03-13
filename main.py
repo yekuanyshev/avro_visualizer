@@ -14,7 +14,9 @@ ignore_schemas = [
     'ProductRef',
     'RestructurizationRef',
     'TransactionRef',
-    'StaffRef'
+    'StaffRef',
+    'ClientRoleMVCC',
+    'GuarantorRecordMVCC'
 ]
 
 def main():
