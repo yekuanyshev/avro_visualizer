@@ -10,13 +10,17 @@ ignore_schemas = [
     'CreditPurposeDictValue',
     'ExtraDataRecord',
     'ExternalRefMVCC',
+    'ClientRoleMVCC',
+    'GuarantorRecordMVCC',
+    'ContractorRecordMVCC',
     'ClientRef',
     'ProductRef',
     'RestructurizationRef',
     'TransactionRef',
     'StaffRef',
-    'ClientRoleMVCC',
-    'GuarantorRecordMVCC'
+    'ClientGroupRef',
+    'ClientGroupIDRef',
+    'BusinessAreaRef',
 ]
 
 def main():
