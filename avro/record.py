@@ -11,7 +11,7 @@ class Record:
     def dump(self, table_format='html'):
         headers = ['Table', 'Field', 'Type', 'Required', 'Doc']
         table_data = [
-            [self.name, '', '', '', '']
+            [self.name, '', '', '', self.doc]
         ]
         for field in self.fields:
             field_name = f'{field.name} *' if field.is_primary else field.name

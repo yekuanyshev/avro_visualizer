@@ -8,9 +8,9 @@ class Enum:
     doc:            str = None
 
     def dump(self, table_format='html'):
-        headers = ['Enum', 'Values']
+        headers = ['', 'Enum', 'Values', 'Doc']
         data = [
-            [self.name, '']
+            [self.name, '', self.doc]
         ]
         for value in self.values:
             data.append(['', value])
