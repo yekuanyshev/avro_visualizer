@@ -1,5 +1,6 @@
 import json
 import avro
+import config
 
 ignore_schemas = [
     'DictKeys',
@@ -24,8 +25,8 @@ ignore_schemas = [
 ]
 
 def main():
-    raw = read_json_file('models.avsc')
-    table_format = 'html'
+    raw = read_json_file(config.file)
+    table_format = config.format
 
     result = ''
     for raw_schema in raw:

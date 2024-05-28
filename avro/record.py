@@ -1,4 +1,6 @@
 from .field import Field
+from .function import Function
+from .relation import Relation
 from dataclasses import dataclass
 import tabulate
 
@@ -6,6 +8,8 @@ import tabulate
 class Record:
     name:           str
     fields:         list[Field]
+    functions:      list[Function]
+    relations:      list[Relation]
     doc:            str = None
 
     def dump(self, table_format='html'):
@@ -22,6 +26,28 @@ class Record:
                 field.is_required,
                 field.doc,
             ])
+
+        if len(self.functions) > 0:
+            table_data.append([])
+
+            table_data.append(['Functions'])
+            for function in self.functions:
+                table_data.append([
+                    '',
+                    function.name
+                ])
+        
+        if len(self.relations) > 0:
+            table_data.append([])
+            
+            table_data.append(['Relations', 'Field', 'Count', 'To'])
+            for relation in self.relations:
+                table_data.append([
+                    '',
+                    relation.name,
+                    relation.count,
+                    relation.to
+                ])
 
         return tabulate.tabulate(
             table_data,

@@ -1,5 +1,7 @@
 from .record import Record
 from .field import Field
+from .function import Function
+from .relation import Relation
 from .enum import Enum
 
 ignore_fields = [
@@ -37,9 +39,24 @@ def parse_record(raw: dict) -> Record:
             is_nullable=is_nullable,
             doc=field_doc
         ))
+    
+    functions = []
+    for raw_function in raw.get('functions', ()):
+        functions.append(Function(name=raw_function['name']))
+    
+    relations = []
+    for raw_relation in raw.get('relations', ()):
+        relations.append(Relation(
+            name=raw_relation['name'],
+            count=raw_relation['count'],
+            to=raw_relation['to']
+        ))
+
     return Record(
         name=name,
         fields=fields,
+        functions=functions,
+        relations=relations,
         doc=doc
     )
 
