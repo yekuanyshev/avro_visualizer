@@ -1,6 +1,7 @@
 import json
 import avro
-import config
+import typer
+import sys
 
 ignore_schemas = [
     'DictKeys',
@@ -24,9 +25,12 @@ ignore_schemas = [
     'BusinessAreaRef',
 ]
 
-def main():
-    raw = read_json_file(config.file)
-    table_format = config.format
+app = typer.Typer()
+
+@app.command()
+def convert(file: str = None, format: str = 'grid'):
+    raw = get_schema(file)
+    table_format = format
 
     result = ''
     for raw_schema in raw:
@@ -43,15 +47,19 @@ def main():
 
         result += '\n'
 
-    with open('result.txt', 'w') as f:
-        f.write(result)
+    print(result)
 
-def read_json_file(filename):
-    with open(filename, 'r') as f:
-        return json.load(f)
+def get_schema(schema_file: str = None) -> list[dict]:
+    if schema_file is not None:
+        with open(schema_file) as f:
+            return json.load(f)
 
+    content = sys.stdin.read()
+    if content is None or len(content) == 0:
+        raise Exception('empty schema file')
 
+    return json.loads(content)
 
 
 if __name__ == '__main__':
-    main()
+    app()
